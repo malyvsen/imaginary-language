@@ -19,18 +19,18 @@ def is_word(text):
 def case(text):
     if text.islower():
         return 'lower'
-    if text.isupper():
-        return 'upper'
     if text.istitle():
         return 'title'
+    if text.isupper():
+        return 'upper'
     return 'other'
 
 
 def to_case(text, case):
     if case == 'lower':
         return text.lower()
-    if case == 'upper':
-        return text.upper()
     if case == 'title':
         return text.title()
+    if case == 'upper':
+        return text.upper()
     return text
