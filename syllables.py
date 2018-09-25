@@ -19,7 +19,7 @@ def generate():
         new_syllable = random_syllable()
         while new_syllable in syllables:
             new_syllable = random_syllable()
-        syllables[new_syllable] = np.random.normal(scale=settings.syllable_vector_scale, size=english.embedding_dimensions)
+        syllables[new_syllable] = np.random.normal(size=english.embedding_dimensions)
     print('Syllables generated')
 
 
@@ -40,17 +40,15 @@ def translate_word(english_word):
     if not text.is_word(english_word):
         return english_word
     best_equivalent = english.fuzzy_match(english_word)
-    target_distance = settings.distance_epsilon * settings.base_distance / (english.words.index(best_equivalent) + settings.distance_epsilon)
+    best_equivalent_rank = english.words.index(best_equivalent)
+    target_embedding = english.normalized_embeddings[best_equivalent]
+    target_num_syllables = settings.min_word_syllables + (settings.max_word_syllables - settings.min_word_syllables) * best_equivalent_rank / len(english.words)
     result = ''
     result_embedding = np.zeros(english.embedding_dimensions)
-    for used_syllables in range(settings.max_word_syllables):
-        best_syllable = min(syllables, key=lambda syllable: english.euclidean_distance(result_embedding + syllables[syllable], best_equivalent))
-        if english.euclidean_distance(result_embedding + syllables[best_syllable], best_equivalent) > english.euclidean_distance(result_embedding, best_equivalent):
-            break # FIXME: this happens (statistically) always... because high-dimensional space?
+    for i in range(int(target_num_syllables)):
+        best_syllable = max(syllables, key=lambda syllable: english.semantic_similarity(syllables[syllable], target_embedding - result_embedding))
         result += best_syllable
         result_embedding += syllables[best_syllable]
-        if english.euclidean_distance(result_embedding, best_equivalent) < target_distance:
-            break
     return result
 
 

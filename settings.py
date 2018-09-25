@@ -19,10 +19,8 @@ class syllables:
     num_syllables = 512
     syllable_patterns = ['ba', 'bja', 'bjah', 'bah', 'qa', 'ja', 'qaj', 'jaj', 'ha', 'haj']
     letter_groups = {'a': 'aeiouy', 'b': 'bcdfgkpstvxz', 'j': 'jlr', 'h': 'hmn', 'q': 'qw'}
-    syllable_vector_scale = 0.5 # the higher, the more meaning a single vector carries
-    max_word_syllables = 8
-    base_distance = 4 # the higher, the less precise (and shorter) the formed words will be
-    distance_epsilon = 1024 # the higher, the less variation in word length
+    min_word_syllables = 1
+    max_word_syllables = 32
 
 
 class dictionary:
