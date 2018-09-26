@@ -34,3 +34,11 @@ def to_case(text, case):
     if case == 'upper':
         return text.upper()
     return text
+
+
+def ending_distance(a, b):
+    '''A measure of how different two strings are'''
+    for i in range(min(len(a), len(b))):
+        if a[:i+1] != b[:i+1]:
+            return max(len(a), len(b)) - i
+    return abs(len(a) - len(b))

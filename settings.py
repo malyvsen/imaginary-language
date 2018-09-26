@@ -24,7 +24,7 @@ class syllables:
 
 
 class dictionary:
-    num_words = 2 ** 14
+    num_words = 2 ** 16
 
     max_distance = 16 # the higher, the more the language spreads over the word space
     distance_power = 1 # the higher, the more words which are already considered similar are 'pulled together'

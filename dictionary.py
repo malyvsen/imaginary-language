@@ -3,7 +3,6 @@ import re
 import json
 import random
 import numpy as np
-from Levenshtein import distance
 from collections import OrderedDict
 from tqdm import tqdm, trange
 import text
@@ -81,7 +80,7 @@ def translation_score(english_word, imaginary_word, compare_to):
     total_similarity = 0
     for word in compare_to:
         current_similarity = english.semantic_similarity(english_word, word)
-        current_loss = target_distance(current_similarity) - distance(imaginary_word, dictionary[word])
+        current_loss = target_distance(current_similarity) - text.ending_distance(imaginary_word, dictionary[word])
         current_loss = np.abs(current_loss) * current_similarity # we care more about neighborhood structure
         semantic_loss += current_loss
         total_similarity += current_similarity
