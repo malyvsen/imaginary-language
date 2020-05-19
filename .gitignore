@@ -103,5 +103,5 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# GloVe pretrained embeddings
-glove.*.txt
+# VS Code files
+.vscode/
